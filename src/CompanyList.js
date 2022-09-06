@@ -7,7 +7,7 @@ import JoblyApi from "./joblyApi";
 
 function CompanyList() {
   const [companies, setCompanies] = useState({
-    data: null,
+    data: [],
     isLoading: true
   });
 
@@ -38,11 +38,16 @@ function CompanyList() {
   return (
     <div>
       <SearchForm search={search} />
-      {companies.data.map(c => (
+      {companies.data.length > 0
+      ?
+      companies.data.map(c => (
         <div key={c.handle}>
           < CompanyCard company={c}/>
         </div>
-      ))}
+      ))
+      :
+      <p>No companies found!</p>
+      }
     </div>
   );
 }
