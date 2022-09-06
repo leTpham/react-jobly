@@ -29,10 +29,10 @@ function RouteList() {
       />
 
       <Route
-        path="/comapnies/:name"
+        path="/companies/:name"
         element={<CompanyDetail />}
       />
-      
+
       <Route
         path="/*"
         element={<Navigate to="/" />}
