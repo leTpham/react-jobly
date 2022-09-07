@@ -10,6 +10,11 @@ import JobList from "./JobList";
 import CompanyDetail from "./CompanyDetail";
 
 
+/**
+ * RouteList
+ *
+ * RouteList -> {Homepage, CompanyList, JobList, CompanyDetail}
+ */
 function RouteList() {
   return (
     <Routes>

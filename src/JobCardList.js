@@ -1,5 +1,10 @@
 import JobCard from "./JobCard";
 
+/**
+ * JobCardList: listing cards of jobs
+ *
+ * JobCardList -> JobCard
+ */
 function JobCardList({ jobs }) {
   return (
     <>

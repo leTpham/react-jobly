@@ -5,6 +5,19 @@ import CompanyCard from "./CompanyCard";
 import JoblyApi from "./joblyApi";
 
 
+/**
+ *
+ * CompanyList: list of all companies
+ *
+ * State:
+ * - const [companies, setCompanies] = useState({
+    data: [],
+    isLoading: true
+  });
+
+  * CompanyList -> {SearchForm, CompanyCard}
+
+ */
 function CompanyList() {
   const [companies, setCompanies] = useState({
     data: [],

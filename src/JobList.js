@@ -4,6 +4,17 @@ import SearchForm from "./SearchForm";
 import JobCardList from "./JobCardList";
 import JoblyApi from "./joblyApi";
 
+
+/** JobList: list of all jobs
+ *
+ * State:
+ * - const [jobs, setJobs] = useState({
+    data: [],
+    isLoading: true
+  });
+
+  JobList -> {SearchForm, JobCardList}
+ */
 function JobList() {
   const [jobs, setJobs] = useState({
     data: [],
