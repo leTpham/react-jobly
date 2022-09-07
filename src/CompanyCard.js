@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
  */
 
 function CompanyCard({ company }) {
-  const { handle, name, description, numEmployees, logoUrl } = company;
+  const { handle, name, description, logoUrl } = company;
   let logoSrc = logoUrl ? logoUrl : "../logos/no-image-available.png";
   return (
     <div>

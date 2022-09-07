@@ -7,10 +7,7 @@ import JoblyApi from "./joblyApi";
 /**CompanyDetail: name, description and list of all jobs of one company
  *
  * State:
- * - const [company, setCompany] = useState({
-    data: null,
-    isLoading: true
-  });
+ * - company = {data: null, isLoading: true}
  * CompanyDetail -> JobCardList
  */
 function CompanyDetail() {

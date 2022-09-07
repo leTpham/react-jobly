@@ -7,7 +7,7 @@ import { useState } from "react";
  * - seach: fn() for seach by term on submit
  *
  * State:
- * - [term, setTerm] = useState("")
+ * - term = "" 
  *
  * App -> RouteList -> { CompanyList, JobList } -> SearchForm
  */

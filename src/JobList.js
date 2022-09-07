@@ -8,9 +8,7 @@ import JoblyApi from "./joblyApi";
 /** JobList: list of all jobs
  *
  * State:
- * - const [jobs, setJobs] = useState({
-    data: [],
-    isLoading: true
+ * - jobs={data:[],isLoading:true}
   });
 
   JobList -> {SearchForm, JobCardList}
@@ -47,10 +45,10 @@ function JobList() {
     <div>
       <SearchForm search={search} />
       {jobs.data.length > 0
-      ?
-      <JobCardList jobs = {jobs.data} />
-      :
-      <p>Sorry, no results were found!</p>
+        ?
+        <JobCardList jobs={jobs.data} />
+        :
+        <p>Sorry, no results were found!</p>
       }</div>
   );
 }

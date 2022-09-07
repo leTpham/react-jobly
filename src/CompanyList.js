@@ -10,10 +10,8 @@ import JoblyApi from "./joblyApi";
  * CompanyList: list of all companies
  *
  * State:
- * - const [companies, setCompanies] = useState({
-    data: [],
-    isLoading: true
-  });
+ * - companies: {data:[], isLoading: true}
+ * TODO: useEffect...
 
   * CompanyList -> {SearchForm, CompanyCard}
 
