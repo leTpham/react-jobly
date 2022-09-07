@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import 'bootstrap/dist/js/bootstrap.bundle';
 import {
+  Container,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -20,11 +22,12 @@ function NavBar() {
 
   return (
     <div>
+      <Container className="container-fluid" >
       <Navbar className="NavBar">
         <NavbarBrand href="/">Jobly</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" navbar>
+          <Nav className="xs-auto" navbar>
             <NavItem>
               <NavLink href="/">Jobly</NavLink>
             </NavItem>
@@ -37,6 +40,7 @@ function NavBar() {
           </Nav>
         </Collapse>
       </Navbar>
+      </Container>
     </div>
   );
 }

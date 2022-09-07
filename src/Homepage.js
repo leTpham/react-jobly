@@ -3,7 +3,6 @@
 function Homepage() {
   return (
     <div>
-      HOME
     </div>
   )
 }
