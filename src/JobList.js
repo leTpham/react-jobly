@@ -8,10 +8,12 @@ import JoblyApi from "./joblyApi";
 /** JobList: list of all jobs
  *
  * State:
- * - jobs={data:[],isLoading:true}
-  });
-
-  JobList -> {SearchForm, JobCardList}
+ * - jobs = {data:[], isLoading:boolean}
+ *
+ * Effect:
+ * - call getJobs() on mount
+ * 
+ * JobList -> {SearchForm, JobCardList}
  */
 function JobList() {
   const [jobs, setJobs] = useState({

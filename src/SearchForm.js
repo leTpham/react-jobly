@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Form, Input, Button, Row, Col } from "reactstrap";
 
 /** Search form component
  *
@@ -7,7 +7,7 @@ import { useState } from "react";
  * - seach: fn() for seach by term on submit
  *
  * State:
- * - term = "" 
+ * - term = ""
  *
  * App -> RouteList -> { CompanyList, JobList } -> SearchForm
  */
@@ -25,14 +25,24 @@ function SearchForm({ search }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={term}
-        onChange={handleChange}
-        placeholder="Enter search term..."
-      />
-      <button>Search!</button>
-    </form>
+    <Form
+      onSubmit={handleSubmit}
+      style={{display: 'inline-block' }}>
+      <Row
+      className="row-cols-lg-auto align-items-center"
+      style={{margin:"2rem"}}>
+        <Col>
+          <Input
+            value={term}
+            onChange={handleChange}
+            placeholder="Enter search term..."
+          />
+        </Col>
+        <Col>
+          <Button>Search!</Button>
+        </Col>
+      </Row>
+    </Form>
   );
 }
 

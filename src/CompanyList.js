@@ -4,17 +4,20 @@ import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
 import JoblyApi from "./joblyApi";
 
+import { Container, Row, Col } from "reactstrap";
+
 
 /**
  *
  * CompanyList: list of all companies
  *
  * State:
- * - companies: {data:[], isLoading: true}
- * TODO: useEffect...
-
-  * CompanyList -> {SearchForm, CompanyCard}
-
+ * - companies: {data:[], isLoading: boolean}
+ *
+ * useEffect:
+ * - call getCompanie() on mount
+ *
+ * CompanyList -> {SearchForm, CompanyCard}
  */
 function CompanyList() {
   const [companies, setCompanies] = useState({
@@ -45,19 +48,27 @@ function CompanyList() {
   if (companies.isLoading) return <i>Loading...</i>;
 
   return (
-    <div>
-      <SearchForm search={search} />
-      {companies.data.length > 0
-      ?
-      companies.data.map(c => (
-        <div key={c.handle}>
-          < CompanyCard company={c}/>
-        </div>
-      ))
-      :
-      <p>No companies found!</p>
-      }
-    </div>
+    <Container>
+      <Row>
+        <Col className="">
+          <SearchForm search={search} />
+        </Col>
+      </Row>
+      <Row xs='1' sm='1' md='3' xl='4'>
+        {companies.data.length > 0
+          ?
+          companies.data.map(c => (
+            <Col
+              className=""
+              key={c.handle}>
+              < CompanyCard company={c} />
+            </Col>
+          ))
+          :
+          <p>No companies found!</p>
+        }
+      </Row>
+    </Container>
   );
 }
 

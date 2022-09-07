@@ -7,7 +7,11 @@ import JoblyApi from "./joblyApi";
 /**CompanyDetail: name, description and list of all jobs of one company
  *
  * State:
- * - company = {data: null, isLoading: true}
+ * - company = {data: null, isLoading: boolean}
+ *
+ * Effect:
+ * - call getCompany() on mount and when name changes
+ *
  * CompanyDetail -> JobCardList
  */
 function CompanyDetail() {

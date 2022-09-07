@@ -1,13 +1,14 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar.js";
 import RouteList from "./RouteList.js";
 
 /**
- * 
+ *
  * App
- * 
+ *
  * App -> {NavBar, RouteList}
  */
 function App() {
