@@ -24,9 +24,9 @@ function JobCard({ job }) {
 
     <Card style={{
       width: '18rem',
-      height: '12rem',
-      margin: '2rem',
-      padding: '0.5rem'
+      height: '11rem',
+      margin: '1rem',
+      padding: '0.3rem'
     }}>
       <CardBody>
         <CardTitle tag="h5">{title}</CardTitle>

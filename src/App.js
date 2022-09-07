@@ -1,7 +1,5 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Helmet} from "react-helmet"
-
+import { Helmet } from "react-helmet";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar.js";
 import RouteList from "./RouteList.js";
@@ -15,7 +13,16 @@ import RouteList from "./RouteList.js";
 function App() {
   return (
     <div className="App">
-      <Helmet bodyAttributes={{style: 'background-image:'}}/>
+      <Helmet >
+        <title>Jobly!</title>
+        <style type="text/css">
+          {`
+          body{
+            background-image: url("background.jpg");
+            background-size: cover;}}`
+          }
+        </style>
+      </Helmet>
       <BrowserRouter>
         <NavBar />
         <div className="container">

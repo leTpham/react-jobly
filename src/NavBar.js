@@ -9,6 +9,7 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Row,
 } from 'reactstrap';
 
 
@@ -22,15 +23,11 @@ function NavBar() {
 
   return (
     <div>
-      <Container className="container-fluid" >
-      <Navbar className="NavBar">
+      <Navbar className="NavBar" bg="light" expand="lg" color="white">
         <NavbarBrand href="/">Jobly</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler onClick={toggle} aria-controls="basic-navbar-nav"/>
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="xs-auto" navbar>
-            <NavItem>
-              <NavLink href="/">Jobly</NavLink>
-            </NavItem>
+          <Nav className="me-auto" style={{float: "right"}}>
             <NavItem>
               <NavLink href="/companies">Companies</NavLink>
             </NavItem>
@@ -40,7 +37,6 @@ function NavBar() {
           </Nav>
         </Collapse>
       </Navbar>
-      </Container>
     </div>
   );
 }

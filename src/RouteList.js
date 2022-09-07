@@ -22,27 +22,34 @@ function RouteList() {
         path="/"
         element={<Homepage />}
       />
-
       <Route
         path="/companies"
         element={<CompanyList />}
       />
-
       <Route
         path="/jobs"
         element={<JobList />}
       />
-
       <Route
         path="/companies/:name"
         element={<CompanyDetail />}
       />
-
+      <Route
+        path="/login"
+        element={<CompanyDetail />}
+      />
+      <Route
+        path="/signup"
+        element={<CompanyDetail />}
+      />
+      <Route
+        path="/profile"
+        element={<CompanyDetail />}
+      />
       <Route
         path="/*"
         element={<Navigate to="/" />}
       />
-
     </Routes>
   );
 }

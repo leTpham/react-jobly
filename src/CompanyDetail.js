@@ -41,7 +41,6 @@ function CompanyDetail() {
       <h2> {company.data.name}</h2>
       <p> {company.data.description}</p>
       <JobCardList jobs={company.data.jobs} />
-
     </div>
 
   );
