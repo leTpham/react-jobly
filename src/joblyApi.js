@@ -18,7 +18,7 @@ class JoblyApi {
   // static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
   //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
   //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
-  static token = "";
+  static token = null;
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -43,12 +43,13 @@ class JoblyApi {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
+    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
     const body = (method === "post" || method === "patch")
       ? data
       : {};
 
     try {
-      return (await axios({ url, method, data, body })).data;
+      return (await axios({ url, method, data, body, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
@@ -89,7 +90,6 @@ class JoblyApi {
 
   static async register(data) {
     let res = await this.requestChange("auth/register", data, "post");
-    this.token = res.token;
     return res.token;
   }
 
@@ -97,18 +97,20 @@ class JoblyApi {
 
   static async login(data) {
     let res = await this.requestChange("auth/token", data, "post");
-    this.token = res.token;
     return res.token;
   }
 
   /** Get user's info */
   static async getUser(username) {
-    let res = await this.request(`user/${username}`);
+    let res = await this.request(`users/${username}`);
     return res.user;
   }
 
   /** Edit a user's profile */
-
+  static async editUser(username, data) {
+    let res = await this.requestChange(`users/${username}`, data, "patch");
+    return res.user;
+  }
 
 }
 

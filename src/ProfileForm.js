@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import userContext from "./userContext";
 import {
   Container,
   Row,
@@ -25,12 +25,18 @@ function ProfileForm({ editUser }) {
   const [formData, setFormData] = useState({
     data: {
     },
-    isLoading: true});
+    isLoading: true
+  });
+  const { user } = useContext(userContext);
 
   useEffect(function fetchUserProfile() {
     async function fetchUser() {
-      const { username, firstName, lastName, email } = await JoblyApi.getUser();
-      setFormData({ username, firstName, lastName, email });
+      const {
+        firstName,
+        lastName,
+        email
+      } = await JoblyApi.getUser(user.username);
+      setFormData({ firstName, lastName, email });
     }
     fetchUser();
   }, []);
@@ -45,7 +51,6 @@ function ProfileForm({ editUser }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     editUser(formData);
-    setFormData("");
   }
 
   return (
@@ -65,8 +70,7 @@ function ProfileForm({ editUser }) {
                 disabled
                 id="username"
                 name="username"
-                value={formData.username}
-                onChange={handleChange}
+                value={user.username}
               />
               <Label for="first_name">First name</Label>
               <Input

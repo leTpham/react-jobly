@@ -6,7 +6,7 @@ import userContext from "./userContext";
 /** Home */
 function Homepage() {
   const { user } = useContext(userContext);
-  console.log(userContext, user);
+  
   return (
     <Container
       style={{

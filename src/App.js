@@ -25,6 +25,7 @@ function App() {
   useEffect(function getToken() {
     const currToken = JSON.parse(localStorage.getItem(TOKEN_KEY));
     setToken(currToken);
+    JoblyApi.token = currToken;
     if (currToken) {
       const currUser = jwt_decode(currToken);
       setUser(currUser);
@@ -61,8 +62,8 @@ function App() {
   }
 
   async function editUser(data) {
-    
-
+    const updatedUser = await JoblyApi.editUser(user.username, data);
+    setUser(updatedUser);
   }
 
   return (
@@ -80,7 +81,12 @@ function App() {
         <BrowserRouter>
           <NavBar logout={logout} />
           <div className="container">
-            <RouteList register={register} login={login} logout={logout} />
+            <RouteList
+              register={register}
+              login={login}
+              logout={logout}
+              editUser={editUser}
+            />
           </div>
         </BrowserRouter>
       </userContext.Provider>
