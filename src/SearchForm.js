@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Form, Input, Button, Row, Col } from "reactstrap";
+import debounce from "lodash/debounce";
 
 /** Search form component
  *
@@ -16,13 +17,19 @@ function SearchForm({ search }) {
 
   function handleChange(evt) {
     setTerm(evt.target.value);
+    if(term.length > 0) handleChangeWithLib(term)
   }
 
-  function handleSubmit(evt) {
+  const handleChangeWithLib = debounce((term) => {
+    search(term)
+  }, [200]);
+
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    search(term);
+    await search(term);
     setTerm("");
   }
+
 
   return (
     <Form
