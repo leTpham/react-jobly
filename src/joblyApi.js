@@ -37,6 +37,23 @@ class JoblyApi {
     }
   }
 
+
+  static async requestPost(endpoint, data = {}, method = "post") {
+    console.debug("API Call:", endpoint, data, method);
+
+    const url = `${BASE_URL}/${endpoint}`;
+    const body = (method === "post")
+      ? data
+      : {};
+
+    try {
+      return (await axios({ url, method, data, body })).data;
+    } catch (err) {
+      console.error("API Error:", err.response);
+      let message = err.response.data.error.message;
+      throw Array.isArray(message) ? message : [message];
+    }
+  }
   // Individual API routes
 
   /** Get details on a company by handle. */
@@ -49,7 +66,7 @@ class JoblyApi {
   /** Get details on all companies. */
 
   static async getCompanies(name) {
-    let res = await this.request(`companies`, {name});
+    let res = await this.request(`companies`, { name });
     return res.companies;
   }
 
@@ -65,14 +82,29 @@ class JoblyApi {
   /** Get details on all jobs. */
 
   static async getJobs(title) {
-    let res = await this.request(`jobs`, {title});
+    let res = await this.request(`jobs`, { title });
     return res.jobs;
   }
 
 
   // obviously, you'll add a lot here ...
 
+  /** Register a new user */
 
+  static async register(data) {
+    let res = await this.requestPost("auth/register", data, "post");
+    return res.token;
+  }
+
+  /** Authenticate a user logging in */
+
+  static async login(data) {
+    let res = await this.requestPost("auth/token", data, "post");
+    return res.token;
+  }
+
+
+  /** Edit a user's profile */
 }
 
 export default JoblyApi;

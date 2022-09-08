@@ -8,6 +8,8 @@ import Homepage from "./Homepage";
 import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import CompanyDetail from "./CompanyDetail";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
 
 /**
@@ -15,7 +17,7 @@ import CompanyDetail from "./CompanyDetail";
  *
  * RouteList -> {Homepage, CompanyList, JobList, CompanyDetail}
  */
-function RouteList() {
+function RouteList({updateUser}) {
   return (
     <Routes>
       <Route
@@ -36,11 +38,11 @@ function RouteList() {
       />
       <Route
         path="/login"
-        element={<CompanyDetail />}
+        element={<LoginForm updateUser={updateUser}/>}
       />
       <Route
         path="/signup"
-        element={<CompanyDetail />}
+        element={<SignupForm updateUser={updateUser}/>}
       />
       <Route
         path="/profile"
