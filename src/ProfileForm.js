@@ -1,6 +1,6 @@
 import { Container } from 'reactstrap';
 
-function Profile() {
+function ProfileForm() {
   return (
     <Container>
 
@@ -8,4 +8,4 @@ function Profile() {
   )
 }
 
-export default Profile;
+export default ProfileForm;

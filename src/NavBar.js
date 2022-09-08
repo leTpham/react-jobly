@@ -28,6 +28,40 @@ function NavBar({ logout }) {
 
   const { user } = useContext(userContext);
 
+  function showLoggedIn() {
+    return (
+      <>
+        <NavItem>
+          <NavLink to="/">Home</NavLink>
+        </NavItem>&nbsp;&nbsp;&nbsp;
+        <NavItem>
+          <NavLink to="/companies">Companies</NavLink>
+        </NavItem>&nbsp;&nbsp;&nbsp;
+        <NavItem>
+          <NavLink to="/jobs">Jobs</NavLink>
+        </NavItem>&nbsp;&nbsp;&nbsp;
+        <NavItem>
+          <NavLink to="/" onClick={logout}>
+            Logout {user.username}
+          </NavLink>
+        </NavItem>
+      </>
+    );
+  }
+
+  function showLoggedOut() {
+    return (
+      <>
+        <NavItem>
+          <NavLink to="/login">Log In</NavLink>
+        </NavItem>&nbsp;&nbsp;&nbsp;
+        <NavItem>
+          <NavLink to="/signup">Sign up</NavLink>
+        </NavItem>
+      </>
+    );
+  }
+
   return (
     <div>
       <Navbar className="NavBar" bg="light" expand="lg" color="white">
@@ -36,33 +70,10 @@ function NavBar({ logout }) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto">
             {user
-            
               ?
-              <>
-                <NavItem>
-                  <NavLink to="/">Home</NavLink>
-                </NavItem>&nbsp;&nbsp;&nbsp;
-                <NavItem>
-                  <NavLink to="/companies">Companies</NavLink>
-                </NavItem>&nbsp;&nbsp;&nbsp;
-                <NavItem>
-                  <NavLink to="/jobs">Jobs</NavLink>
-                </NavItem>&nbsp;&nbsp;&nbsp;
-                <NavItem>
-                  <NavLink to="/" onClick={logout}>
-                    Logout {user.username}
-                  </NavLink>
-                </NavItem>
-              </>
+              showLoggedIn()
               :
-              <>
-                <NavItem>
-                  <NavLink to="/login">Log In</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink to="/signup">Sign up</NavLink>
-                </NavItem>
-              </>
+              showLoggedOut()
             }
           </Nav>
         </Collapse>

@@ -3,13 +3,15 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
-
+import { useContext } from "react";
+import userContext from "./userContext";
 import Homepage from "./Homepage";
 import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import CompanyDetail from "./CompanyDetail";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
+import ProfileForm from "./ProfileForm";
 
 
 /**
@@ -18,12 +20,11 @@ import SignupForm from "./SignupForm";
  * RouteList -> {Homepage, CompanyList, JobList, CompanyDetail}
  */
 function RouteList({login, register}) {
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={<Homepage />}
-      />
+  const { user } = useContext(userContext);
+
+  function showProtectedRoutes() {
+    return (
+      <>
       <Route
         path="/companies"
         element={<CompanyList />}
@@ -37,6 +38,25 @@ function RouteList({login, register}) {
         element={<CompanyDetail />}
       />
       <Route
+        path="/profile"
+        element={<ProfileForm />}
+      />
+      </>
+    )
+  }
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={<Homepage />}
+      />
+      {user
+      ?
+      showProtectedRoutes()
+      :
+      null}
+
+      <Route
         path="/login"
         element={<LoginForm login={login}/>}
       />
@@ -44,10 +64,7 @@ function RouteList({login, register}) {
         path="/signup"
         element={<SignupForm register={register}/>}
       />
-      <Route
-        path="/profile"
-        element={<CompanyDetail />}
-      />
+
       <Route
         path="/*"
         element={<Navigate to="/" />}
