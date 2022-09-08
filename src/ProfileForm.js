@@ -11,6 +11,7 @@ import {
   Button
 } from "reactstrap";
 import JoblyApi from "./joblyApi";
+import AlertMsg from "./Alert";
 
 /** ProfileForm component
  *
@@ -25,8 +26,10 @@ function ProfileForm({ editUser }) {
   const [formData, setFormData] = useState({
     data: {
     },
-    isLoading: true
+    isLoading: true,
+    isUpdated: false,
   });
+  //TODO: break up the state
   const { user } = useContext(userContext);
 
   useEffect(function fetchUserProfile() {
@@ -37,9 +40,10 @@ function ProfileForm({ editUser }) {
         email
       } = await JoblyApi.getUser(user.username);
       setFormData({ firstName, lastName, email });
+      //TODO: set loading to false
     }
     fetchUser();
-  }, []);
+  }, [user]);
 
   if (formData.isLoading) return <i>Loading...</i>;
 
@@ -50,11 +54,12 @@ function ProfileForm({ editUser }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    editUser(formData);
+    await editUser(formData);
+    setFormData(fd => ({ ...fd, isUpdated: true }));
   }
 
   return (
-    <Container style={{ marginTop: "16rem" }}>
+    <Container style={{ marginTop: "12rem" }}>
       <Row>
         <Col
           className="bg-white bg-opacity-50 border rounded"
@@ -92,6 +97,7 @@ function ProfileForm({ editUser }) {
                 onChange={handleChange}
                 type="email" />
             </FormGroup>
+            {formData.isUpdated && <AlertMsg success="success"/>}
             <Button color="primary">Submit</Button>
           </Form>
         </Col>

@@ -10,6 +10,7 @@ import {
   Input,
   Button
 } from "reactstrap";
+import AlertMsg from "./Alert";
 
 /** LoginForm component
  *
@@ -25,6 +26,7 @@ function LoginForm({ login }) {
     username: "",
     password: ""
   });
+  const [err, setErr] = useState(null);
 
   const navigate = useNavigate();
 
@@ -35,9 +37,15 @@ function LoginForm({ login }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    login(formData);
-    setFormData("");
-    navigate("/companies");
+    try {
+  
+      login(formData);
+      setFormData("");
+      navigate("/companies");
+    }
+    catch (e) {
+      setErr(e);
+    }
   }
 
   return (
@@ -68,6 +76,7 @@ function LoginForm({ login }) {
                 type="password"
               />
             </FormGroup>
+            {err && <AlertMsg error={err}/>}
             <Button color="primary">Submit</Button>
           </Form>
         </Col>
