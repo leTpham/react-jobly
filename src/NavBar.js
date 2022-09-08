@@ -8,16 +8,21 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
 } from 'reactstrap';
+import { NavLink } from "react-router-dom";
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 
-/**
- * NavBar
+/** NavBar Component
  *
+ * State: {boolean} collapse navbar
+ *
+ * Context: {user}
+ *
+ * NavBar display changes depending on user logged in or not
  */
-function NavBar({logout}) {
+function NavBar({ logout }) {
+  //navbar collapse  logic
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -26,30 +31,35 @@ function NavBar({logout}) {
   return (
     <div>
       <Navbar className="NavBar" bg="light" expand="lg" color="white">
-        <NavbarBrand href="/">Jobly</NavbarBrand>
+        <NavbarBrand to="/">Jobly</NavbarBrand>
         <NavbarToggler onClick={toggle} aria-controls="basic-navbar-nav" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto">
-            {user
+            {user.data
               ?
               <>
                 <NavItem>
-                  <NavLink href="/companies">Companies</NavLink>
-                </NavItem>
+                  <NavLink to="/">Home</NavLink>
+                </NavItem>&nbsp;&nbsp;&nbsp;
                 <NavItem>
-                  <NavLink href="/jobs">Jobs</NavLink>
-                </NavItem>
+                  <NavLink to="/companies">Companies</NavLink>
+                </NavItem>&nbsp;&nbsp;&nbsp;
                 <NavItem>
-                  <NavLink href="/logout" onClick={logout}>Logout {user.username}</NavLink>
+                  <NavLink to="/jobs">Jobs</NavLink>
+                </NavItem>&nbsp;&nbsp;&nbsp;
+                <NavItem>
+                  <NavLink to="/" onClick={logout}>
+                    Logout {user.data.username}
+                  </NavLink>
                 </NavItem>
               </>
               :
               <>
                 <NavItem>
-                  <NavLink href="/login">Log In</NavLink>
+                  <NavLink to="/login">Log In</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/signup">Sign up</NavLink>
+                  <NavLink to="/signup">Sign up</NavLink>
                 </NavItem>
               </>
             }

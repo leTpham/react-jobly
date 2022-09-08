@@ -1,7 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button
+} from "reactstrap";
 
-function LoginForm({login}) {
+/** LoginForm component
+ *
+ * State: formdata
+ *
+ * Props:
+ * - login: fn()
+ *
+ * Login form for user login
+ */
+function LoginForm({ login }) {
   const [formData, setFormData] = useState({
     username: "",
     password: ""
@@ -22,12 +41,38 @@ function LoginForm({login}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Log In:</h2>
-      Username: <input name="username" value={formData.username} onChange={handleChange} />
-      Password: <input name="password" value={formData.password} onChange={handleChange} />
-      <button>Login</button>
-    </form>
+    <Container style={{ marginTop: "16rem" }}>
+      <Row>
+        <Col
+          className="bg-white bg-opacity-50 border rounded"
+          md={{ offset: 3, size: 6 }}
+          sm="12">
+          <Form
+            onSubmit={handleSubmit}
+            style={{ padding: "0.5rem" }}>
+            <legend>Log In:</legend>
+            <FormGroup>
+              <Label for="username">Username</Label>
+              <Input
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+              <Label for="password">Password:</Label>
+              <Input
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                type="password"
+              />
+            </FormGroup>
+            <Button color="primary">Submit</Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

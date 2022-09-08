@@ -6,7 +6,7 @@ import userContext from "./userContext";
 /** Home */
 function Homepage() {
   const { user } = useContext(userContext);
-
+  console.log(userContext, user);
   return (
     <Container
       style={{
@@ -19,9 +19,9 @@ function Homepage() {
       }}>
       <h1>Jobly</h1>
       <h3>All the jobs in one, convenient place.</h3>
-      {user
+      {user.data
         ?
-        <p> Welcome back, {user.username} </p>
+        <p> Welcome back, {user.data.username} </p>
         :
         <>
           <Link to="/login" >

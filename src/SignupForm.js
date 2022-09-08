@@ -1,6 +1,24 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button
+} from "reactstrap";
 
+
+/** SignupForm component
+ *
+ * Props:
+ * register: fn()
+ *
+ * Form for user signup
+ */
 function SignupForm({ register }) {
   const [formData, setFormData] = useState({
     username: "",
@@ -9,7 +27,7 @@ function SignupForm({ register }) {
     lastName: "",
     email: ""
   });
-  
+
   const navigate = useNavigate();
 
   function handleChange(evt) {
@@ -25,26 +43,55 @@ function SignupForm({ register }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Sign Up:</h2>
-      Username: <input name="username"
-        value={formData.username}
-        onChange={handleChange} />
-      Password: <input name="password"
-        value={formData.password}
-        onChange={handleChange} />
-      First name <input name="firstName"
-        value={formData.firstName}
-        onChange={handleChange} />
-      Last name: <input name="lastName"
-        value={formData.lastName}
-        onChange={handleChange} />
-      Email: <input
-        name="email"
-        value={formData.email}
-        onChange={handleChange} />
-      <button>Sign Up</button>
-    </form>
+    <Container style={{ marginTop: "16rem" }}>
+      <Row>
+        <Col
+          className="bg-white bg-opacity-50 border rounded"
+          md={{ offset: 3, size: 6 }}
+          sm="12">
+          <Form
+            onSubmit={handleSubmit}
+            style={{ padding: "0.5rem" }}>
+            <legend>Sign Up:</legend>
+            <FormGroup>
+              <Label for="username">Username:</Label>
+              <Input
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange} />
+              <Label for="password">Password:</Label>
+              <Input
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                type="password" />
+              <Label for="first_name">First name</Label>
+              <Input
+                id="first_name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange} />
+              <Label for="last_name">Last name:</Label>
+              <Input
+                id="last_name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange} />
+              <Label for="email">Email:</Label>
+              <Input
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                type="email" />
+            </FormGroup>
+            <Button color="primary">Sign up</Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container >
   );
 }
 

@@ -15,9 +15,10 @@ class JoblyApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  // static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+  //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+  //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = "";
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -70,8 +71,6 @@ class JoblyApi {
     return res.companies;
   }
 
-
-
   /** Get details on a job by id. */
 
   static async getJob(id) {
@@ -86,13 +85,11 @@ class JoblyApi {
     return res.jobs;
   }
 
-
-  // obviously, you'll add a lot here ...
-
   /** Register a new user */
 
   static async register(data) {
     let res = await this.requestPost("auth/register", data, "post");
+    this.token = res.token;
     return res.token;
   }
 
@@ -100,6 +97,7 @@ class JoblyApi {
 
   static async login(data) {
     let res = await this.requestPost("auth/token", data, "post");
+    this.token = res.token;
     return res.token;
   }
 
