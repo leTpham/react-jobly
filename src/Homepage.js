@@ -19,9 +19,9 @@ function Homepage() {
       }}>
       <h1>Jobly</h1>
       <h3>All the jobs in one, convenient place.</h3>
-      {user.data
+      {user
         ?
-        <p> Welcome back, {user.data.username} </p>
+        <p> Welcome back, {user.username} </p>
         :
         <>
           <Link to="/login" >

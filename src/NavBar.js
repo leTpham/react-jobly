@@ -35,7 +35,8 @@ function NavBar({ logout }) {
         <NavbarToggler onClick={toggle} aria-controls="basic-navbar-nav" />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto">
-            {user.data
+            {user
+            
               ?
               <>
                 <NavItem>
@@ -49,7 +50,7 @@ function NavBar({ logout }) {
                 </NavItem>&nbsp;&nbsp;&nbsp;
                 <NavItem>
                   <NavLink to="/" onClick={logout}>
-                    Logout {user.data.username}
+                    Logout {user.username}
                   </NavLink>
                 </NavItem>
               </>

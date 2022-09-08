@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import userContext from "./userContext";
 import jwt_decode from "jwt-decode";
 import JoblyApi from './joblyApi';
@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar.js";
 import RouteList from "./RouteList.js";
+
 
 /** App
  *
@@ -16,18 +17,29 @@ import RouteList from "./RouteList.js";
  * App -> {NavBar, RouteList}
  */
 function App() {
-  const [user, setUser] = useState({data: null, token: null});
-  //TODO: separate state for user and token
-  //TODO: global variable for localStorage
+  const TOKEN_KEY = "token";
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
 
-  //TODO: useEffect -> check localStorage.getItem('token'), [token]
+  useEffect(function getToken() {
+    const currToken = JSON.parse(localStorage.getItem(TOKEN_KEY))
+    setToken(currToken);
+    if(currToken){
+    const currUser = jwt_decode(currToken);
+    setUser(currUser);
+    }
+    else {
+      setUser(null)
+    }
+  }, [token]);
 
   // store user data and token in state & localStorage
   function updateUser(token) {
+    localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
     const data = jwt_decode(token);
-    localStorage.setItem('token', JSON.stringify(token));
-    setUser({data, token});
+    setUser(data);
+    setToken(token)
   }
 
   // make ajax request to API upon signup and update user
@@ -44,8 +56,8 @@ function App() {
 
   // on logout, clear localStorage and state
   function logout() {
-    localStorage.removeItem('user');
-    setUser(null);
+    localStorage.removeItem(TOKEN_KEY);
+    setToken(null);
   }
 
   return (
