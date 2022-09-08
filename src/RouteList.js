@@ -52,6 +52,10 @@ function RouteList({login, register}) {
         path="/*"
         element={<Navigate to="/" />}
       />
+      <Route
+        path="/logout"
+        element={<Navigate to="/" />}
+      />
     </Routes>
   );
 }

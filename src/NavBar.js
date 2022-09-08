@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import userContext from "./userContext";
-import { Navigate } from "react-router-dom";
 import {
-  Container,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -11,7 +9,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button,
 } from 'reactstrap';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
@@ -26,19 +23,13 @@ function NavBar({logout}) {
 
   const { user } = useContext(userContext);
 
-  function handleClick(evt) {
-    evt.preventDefault();
-    logout();
-    return <Navigate to="/" />;
-  }
-
   return (
     <div>
       <Navbar className="NavBar" bg="light" expand="lg" color="white">
         <NavbarBrand href="/">Jobly</NavbarBrand>
         <NavbarToggler onClick={toggle} aria-controls="basic-navbar-nav" />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="me-auto" style={{ float: "right" }}>
+          <Nav className="ms-auto">
             {user
               ?
               <>
@@ -49,7 +40,7 @@ function NavBar({logout}) {
                   <NavLink href="/jobs">Jobs</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/" ><Button onClick={handleClick}>Logout</Button></NavLink>
+                  <NavLink href="/logout" onClick={logout}>Logout {user.username}</NavLink>
                 </NavItem>
               </>
               :

@@ -1,7 +1,12 @@
-import { Container } from "reactstrap";
-import { Link } from "react-router-dom"
+import { Container, Button } from "reactstrap";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import userContext from "./userContext";
+
 /** Home */
 function Homepage() {
+  const { user } = useContext(userContext);
+
   return (
     <Container
       style={{
@@ -12,17 +17,24 @@ function Homepage() {
         padding: '8rem',
         width: '90%',
       }}>
-        <h1>Jobly</h1>
-        <h3>All the jobs in one, convenient place.</h3>
-        <Link to="/login" >
-        <button>Log in</button>
-        </Link>
+      <h1>Jobly</h1>
+      <h3>All the jobs in one, convenient place.</h3>
+      {user
+        ?
+        <p> Welcome back, {user.username} </p>
+        :
+        <>
+          <Link to="/login" >
+            <Button color="primary">Log in</Button>
+          </Link>
+          &nbsp; &nbsp;
+          <Link to="/signup" >
+            <Button color="primary">Sign up</Button>
+          </Link>
+        </>
+      }
 
-        <Link to="/signup" >
-        <button>Sign up</button>
-        </Link>
-
-    </Container>
+    </Container >
   );
 }
 
