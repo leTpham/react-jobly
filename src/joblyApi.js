@@ -39,11 +39,11 @@ class JoblyApi {
   }
 
 
-  static async requestPost(endpoint, data = {}, method = "post") {
+  static async requestChange(endpoint, data = {}, method = "post") {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const body = (method === "post")
+    const body = (method === "post" || method === "patch")
       ? data
       : {};
 
@@ -88,7 +88,7 @@ class JoblyApi {
   /** Register a new user */
 
   static async register(data) {
-    let res = await this.requestPost("auth/register", data, "post");
+    let res = await this.requestChange("auth/register", data, "post");
     this.token = res.token;
     return res.token;
   }
@@ -96,13 +96,20 @@ class JoblyApi {
   /** Authenticate a user logging in */
 
   static async login(data) {
-    let res = await this.requestPost("auth/token", data, "post");
+    let res = await this.requestChange("auth/token", data, "post");
     this.token = res.token;
     return res.token;
   }
 
+  /** Get user's info */
+  static async getUser(username) {
+    let res = await this.request(`user/${username}`);
+    return res.user;
+  }
 
   /** Edit a user's profile */
+
+
 }
 
 export default JoblyApi;

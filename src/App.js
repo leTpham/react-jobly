@@ -23,14 +23,14 @@ function App() {
 
 
   useEffect(function getToken() {
-    const currToken = JSON.parse(localStorage.getItem(TOKEN_KEY))
+    const currToken = JSON.parse(localStorage.getItem(TOKEN_KEY));
     setToken(currToken);
-    if(currToken){
-    const currUser = jwt_decode(currToken);
-    setUser(currUser);
+    if (currToken) {
+      const currUser = jwt_decode(currToken);
+      setUser(currUser);
     }
     else {
-      setUser(null)
+      setUser(null);
     }
   }, [token]);
 
@@ -39,7 +39,7 @@ function App() {
     localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
     const data = jwt_decode(token);
     setUser(data);
-    setToken(token)
+    setToken(token);
   }
 
   // make ajax request to API upon signup and update user
@@ -58,6 +58,11 @@ function App() {
   function logout() {
     localStorage.removeItem(TOKEN_KEY);
     setToken(null);
+  }
+
+  async function editUser(data) {
+    
+
   }
 
   return (
