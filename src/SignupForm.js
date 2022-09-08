@@ -1,9 +1,7 @@
-import { Container } from 'reactstrap';
 import { useState } from "react";
-import jwt_decode from "jwt-decode";
-import JoblyApi from './joblyApi';
+import { useNavigate } from "react-router-dom";
 
-function SignupForm({ updateUser }) {
+function SignupForm({ register }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -11,6 +9,8 @@ function SignupForm({ updateUser }) {
     lastName: "",
     email: ""
   });
+  
+  const navigate = useNavigate();
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -19,13 +19,9 @@ function SignupForm({ updateUser }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const token = await JoblyApi.register(formData);
-    const user = jwt_decode(token);
-    localStorage.setItem('user', JSON.stringify(user));
-    console.log(token);
-    updateUser(user);
-    console.log(user);
+    register(formData);
     setFormData("");
+    navigate("/companies");
   }
 
   return (

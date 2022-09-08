@@ -17,7 +17,7 @@ import SignupForm from "./SignupForm";
  *
  * RouteList -> {Homepage, CompanyList, JobList, CompanyDetail}
  */
-function RouteList({updateUser}) {
+function RouteList({login, register}) {
   return (
     <Routes>
       <Route
@@ -38,11 +38,11 @@ function RouteList({updateUser}) {
       />
       <Route
         path="/login"
-        element={<LoginForm updateUser={updateUser}/>}
+        element={<LoginForm login={login}/>}
       />
       <Route
         path="/signup"
-        element={<SignupForm updateUser={updateUser}/>}
+        element={<SignupForm register={register}/>}
       />
       <Route
         path="/profile"
