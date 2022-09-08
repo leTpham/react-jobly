@@ -10,6 +10,9 @@ import {
   Input,
   Button
 } from "reactstrap";
+import AlertMsg from "./Alert";
+
+
 
 
 /** SignupForm component
@@ -28,6 +31,8 @@ function SignupForm({ register }) {
     email: ""
   });
 
+  const [err, setErr] = useState(null);
+
   const navigate = useNavigate();
 
   function handleChange(evt) {
@@ -37,9 +42,14 @@ function SignupForm({ register }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    register(formData);
+    try {
+    await register(formData);
     setFormData("");
     navigate("/companies");
+    }
+    catch (e) {
+      setErr(e);
+    }
   }
 
   return (
@@ -87,6 +97,7 @@ function SignupForm({ register }) {
                 onChange={handleChange}
                 type="email" />
             </FormGroup>
+            {err && <AlertMsg error={err}/>}
             <Button color="primary">Sign up</Button>
           </Form>
         </Col>

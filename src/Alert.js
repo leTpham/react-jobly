@@ -1,11 +1,18 @@
 import { error } from "jquery";
 import { Alert } from "reactstrap";
 
-function AlertMsg({success=null, err=null}) {
+function AlertMsg({success=null, error=null}) {
+  function listErrors(error){
+    return (
+      <>
+      {error.map(e => (<p>{e}</p>))}
+      </>
+    )
+  }
   return (
-    < Alert color={ err ? "danger" : "success"} >
+    < Alert color={ error ? "danger" : "success"} >
       {success && "Updated Successfully"}
-      {err && err.error.message}
+      {error && listErrors(error)}
     </ Alert>
   )
 }

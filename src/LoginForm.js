@@ -38,8 +38,7 @@ function LoginForm({ login }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-  
-      login(formData);
+     await login(formData);
       setFormData("");
       navigate("/companies");
     }

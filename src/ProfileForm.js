@@ -23,14 +23,12 @@ import AlertMsg from "./Alert";
  * Login form for user login
  */
 function ProfileForm({ editUser }) {
-  const [formData, setFormData] = useState({
-    data: {
-    },
-    isLoading: true,
-    isUpdated: false,
-  });
-  //TODO: break up the state
+  const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUpdated, setIsUpdated] = useState(false);
   const { user } = useContext(userContext);
+  const [err, setErr] = useState(null);
+
 
   useEffect(function fetchUserProfile() {
     async function fetchUser() {
@@ -40,12 +38,12 @@ function ProfileForm({ editUser }) {
         email
       } = await JoblyApi.getUser(user.username);
       setFormData({ firstName, lastName, email });
-      //TODO: set loading to false
+      setIsLoading(false);
     }
     fetchUser();
   }, [user]);
 
-  if (formData.isLoading) return <i>Loading...</i>;
+  if (isLoading) return <i>Loading...</i>;
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -54,8 +52,15 @@ function ProfileForm({ editUser }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await editUser(formData);
-    setFormData(fd => ({ ...fd, isUpdated: true }));
+    try {
+      await editUser(formData);
+      setIsUpdated(true);
+      setErr(null)
+    }
+    catch (e) {
+      setErr(e);
+      setIsUpdated(false)
+    }
   }
 
   return (
@@ -68,7 +73,7 @@ function ProfileForm({ editUser }) {
           <Form
             onSubmit={handleSubmit}
             style={{ padding: "0.5rem" }}>
-            <legend>Log In:</legend>
+            <legend>Profile</legend>
             <FormGroup>
               <Label for="username">Username</Label>
               <Input
@@ -97,7 +102,8 @@ function ProfileForm({ editUser }) {
                 onChange={handleChange}
                 type="email" />
             </FormGroup>
-            {formData.isUpdated && <AlertMsg success="success"/>}
+            {err && <AlertMsg error={err}/>}
+            {isUpdated && <AlertMsg success="success" />}
             <Button color="primary">Submit</Button>
           </Form>
         </Col>
