@@ -4,6 +4,8 @@ import SearchForm from "./SearchForm";
 import JobCardList from "./JobCardList";
 import JoblyApi from "./joblyApi";
 
+import { Container, Row, Col } from "reactstrap";
+
 
 /** JobList: list of all jobs
  *
@@ -12,7 +14,7 @@ import JoblyApi from "./joblyApi";
  *
  * Effect:
  * - call getJobs() on mount
- * 
+ *
  * JobList -> {SearchForm, JobCardList}
  */
 function JobList() {
@@ -45,7 +47,18 @@ function JobList() {
 
   return (
     <div>
-      <SearchForm search={search} />
+      <Container>
+        <Row>
+          <Col className=""
+            md={{
+              offset: 3,
+              size: 8
+            }}
+            sm="12">
+            <SearchForm search={search} />
+          </Col>
+        </Row>
+      </Container>
       {jobs.data.length > 0
         ?
         <JobCardList jobs={jobs.data} />

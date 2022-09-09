@@ -49,7 +49,12 @@ function CompanyList() {
   return (
     <Container>
       <Row>
-        <Col className="">
+        <Col className=""
+      md={{
+        offset: 3,
+        size: 8
+      }}
+      sm="12">
           <SearchForm search={search} />
         </Col>
       </Row>

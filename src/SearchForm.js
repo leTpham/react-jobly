@@ -33,10 +33,9 @@ function SearchForm({ search }) {
 
   return (
     <Form
-      onSubmit={handleSubmit}
-      style={{display: 'inline-block' }}>
+      onSubmit={handleSubmit}>
       <Row
-      className="row-cols-lg-auto align-items-center"
+      className=""
       style={{margin:"2rem"}}>
         <Col>
           <Input
