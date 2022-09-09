@@ -16,7 +16,7 @@ function SearchForm({ search }) {
   const [term, setTerm] = useState(null);
   const debounceSearch = useMemo(() => debounce((term) => {
     search(term);
-  }, 1000), []);
+  }, 750), []);
 
 
   //TODO: not the cleanest ~ try without useEffect

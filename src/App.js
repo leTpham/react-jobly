@@ -7,7 +7,6 @@ import { BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar.js";
 import RouteList from "./RouteList.js";
 
-
 /** App
  *
  * State:
@@ -79,7 +78,10 @@ function App() {
   if (isLoading) return <i>Loading...</i>;
 
   return (
-    <div className="App">
+    <div className="App"
+          style={{backgroundImage: `url("background.jpg")`,
+                  backgroundSize: "cover",
+                  height: "100vh"}}>
       <userContext.Provider value={{ user }}>
         <BrowserRouter>
           <NavBar logout={logout} />

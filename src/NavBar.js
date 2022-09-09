@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import { NavLink } from "react-router-dom";
 import 'bootstrap/dist/js/bootstrap.bundle';
+import "./NavBar.css";
 
 
 /** NavBar Component
@@ -44,7 +45,7 @@ function NavBar({ logout }) {
           <NavLink to="/profile">Profile</NavLink>
         </NavItem>&nbsp;&nbsp;&nbsp;
         <NavItem>
-          <NavLink to="/" onClick={logout}>
+          <NavLink to="/logout" onClick={logout}>
             Logout {user.username}
           </NavLink>
         </NavItem>

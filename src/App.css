@@ -1,6 +1,7 @@
-.App {
-  /* background-image: url("/background.jpg"); */
-  background-color: tomato;
+
+a:link {
+  text-decoration: none;
+  
 }
 
 .App-logo {
