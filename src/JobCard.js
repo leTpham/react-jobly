@@ -5,11 +5,15 @@ import {
   CardText,
   CardSubtitle
 } from "reactstrap";
+import JobApply from "./JobApply";
+import { useContext, useState } from "react";
+import userContext from "./userContext";
+
 /** Job Card component
  * renders details about a job
  *
  * Props:
- * - job  {title, salary, equity, companyName}
+ * - job  {id, title, salary, equity, companyName}
  *
  * State:
  * - none
@@ -17,11 +21,15 @@ import {
  * App -> RouteList -> JobList -> JobCard
  */
 
-function JobCard({ job }) {
-  const { title, salary, equity, companyName } = job;
+function JobCard({ job, applyJob }) {
+  const { user } = useContext(userContext);
+  const { id, title, salary, equity, companyName } = job;
+
+  function userJob() {
+    return user.applications.includes(id);
+  }
 
   return (
-
     <Card style={{
       width: '18rem',
       height: '11rem',
@@ -34,6 +42,7 @@ function JobCard({ job }) {
           tag="h6">{companyName}</CardSubtitle>
         <CardText>Salary: {salary}</CardText>
         {equity && <CardText>Equity: {equity}</CardText>}
+        <JobApply applied={userJob()} id={id} applyJob={applyJob}/>
       </CardBody>
     </Card>
   );

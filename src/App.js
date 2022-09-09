@@ -34,9 +34,10 @@ function App() {
           firstName,
           lastName,
           email,
-          isAdmin
+          isAdmin,
+          applications
         } = await JoblyApi.getUser(currUser.username);
-        setUser({ username, firstName, lastName, email, isAdmin });
+        setUser({ username, firstName, lastName, email, isAdmin, applications });
         setIsLoading(false);
       }
       fetchUser();
@@ -75,6 +76,12 @@ function App() {
     setUser(updatedUser);
   }
 
+  async function applyJob(id) {
+    await JoblyApi.applyJob(user.username, id);
+    const updatedUser = await JoblyApi.getUser(user.username);
+    setUser(updatedUser);
+  }
+
   if (isLoading) return <i>Loading...</i>;
 
   return (
@@ -91,6 +98,7 @@ function App() {
               login={login}
               logout={logout}
               editUser={editUser}
+              applyJob={applyJob}
             />
           </div>
         </BrowserRouter>

@@ -14,7 +14,7 @@ import JoblyApi from "./joblyApi";
  *
  * CompanyDetail -> JobCardList
  */
-function CompanyDetail() {
+function CompanyDetail({applyJob}) {
   const [company, setCompany] = useState({
     data: null,
     isLoading: true
@@ -40,7 +40,7 @@ function CompanyDetail() {
     <div>
       <h2> {company.data.name}</h2>
       <p> {company.data.description}</p>
-      <JobCardList jobs={company.data.jobs} />
+      <JobCardList jobs={company.data.jobs} applyJob={applyJob}/>
     </div>
 
   );

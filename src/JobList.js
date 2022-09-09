@@ -17,7 +17,7 @@ import { Container, Row, Col } from "reactstrap";
  *
  * JobList -> {SearchForm, JobCardList}
  */
-function JobList() {
+function JobList({applyJob}) {
   const [jobs, setJobs] = useState({
     data: [],
     isLoading: true
@@ -61,7 +61,7 @@ function JobList() {
       </Container>
       {jobs.data.length > 0
         ?
-        <JobCardList jobs={jobs.data} />
+        <JobCardList jobs={jobs.data} applyJob={applyJob}/>
         :
         <p>Sorry, no results were found!</p>
       }</div>

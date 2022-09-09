@@ -19,7 +19,7 @@ import ProfileForm from "./ProfileForm";
  *
  * RouteList -> {Homepage, CompanyList, JobList, CompanyDetail}
  */
-function RouteList({login, register, editUser}) {
+function RouteList({login, register, editUser, applyJob}) {
   const { user } = useContext(userContext);
 
   function showProtectedRoutes() {
@@ -31,11 +31,11 @@ function RouteList({login, register, editUser}) {
       />
       <Route
         path="/jobs"
-        element={<JobList />}
+        element={<JobList applyJob={applyJob}/>}
       />
       <Route
         path="/companies/:name"
-        element={<CompanyDetail />}
+        element={<CompanyDetail applyJob={applyJob}/>}
       />
       <Route
         path="/profile"
