@@ -1,3 +1,8 @@
+.App {
+  /* background-image: url("/background.jpg"); */
+  background-color: tomato;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Form, Input, Button, Row, Col } from "reactstrap";
 import debounce from "lodash/debounce";
 
@@ -8,18 +8,25 @@ import debounce from "lodash/debounce";
  * - seach: fn() for seach by term on submit
  *
  * State:
- * - term = ""
+ * - term = null by default or string of search term
  *
  * App -> RouteList -> { CompanyList, JobList } -> SearchForm
  */
 function SearchForm({ search }) {
   const [term, setTerm] = useState(null);
-  const debounceSearch = useCallback(debounce((term) => {
+  const debounceSearch = useMemo(() => debounce((term) => {
     search(term);
-  }, 1000), []);
+  }, 1000), [search]);
 
+
+  //TODO: not the cleanest ~ try without useEffect
   useEffect(() => {
-    debounceSearch(term);
+    if (term === null || term.length > 0) {
+      debounceSearch(term);
+    }
+    else {
+      setTerm(null);
+    }
   }, [term, debounceSearch]);
 
   function handleChange(evt) {
@@ -29,15 +36,15 @@ function SearchForm({ search }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     await search(term);
-    setTerm("");
+    setTerm(null);
   }
 
   return (
     <Form
       onSubmit={handleSubmit}>
       <Row
-      className=""
-      style={{margin:"2rem"}}>
+        className=""
+        style={{ margin: "2rem" }}>
         <Col>
           <Input
             value={term || ""}

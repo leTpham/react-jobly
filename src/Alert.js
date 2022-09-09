@@ -22,12 +22,10 @@ function AlertMsg({ success = null, error = null }) {
     <div
       className={error ? "alert alert-danger" : "alert alert-success"}
       role="alert">
-      {success && <span>"Updated Successfully"</span>}
+      {success && <span>Updated Successfully</span>}
       {error && listErrors(error)}
     </div>
   );
 }
 
 export default AlertMsg;
-
-//e.replace(/instance./, "").replace(/Name/, " name")
