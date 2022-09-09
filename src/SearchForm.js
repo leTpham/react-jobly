@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Form, Input, Button, Row, Col } from "reactstrap";
 import debounce from "lodash/debounce";
 
@@ -13,23 +13,24 @@ import debounce from "lodash/debounce";
  * App -> RouteList -> { CompanyList, JobList } -> SearchForm
  */
 function SearchForm({ search }) {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState(null);
+  const debounceSearch = useCallback(debounce((term) => {
+    search(term);
+  }, 1000), []);
+
+  useEffect(() => {
+    debounceSearch(term);
+  }, [term, debounceSearch]);
 
   function handleChange(evt) {
     setTerm(evt.target.value);
-    if(term.length > 0) handleChangeWithLib(term)
   }
-  //TODO: calling debounce (think about this) "use callback"
-  const handleChangeWithLib = debounce((term) => {
-    search(term)
-  }, [200]);
 
   async function handleSubmit(evt) {
     evt.preventDefault();
     await search(term);
     setTerm("");
   }
-
 
   return (
     <Form
@@ -39,7 +40,7 @@ function SearchForm({ search }) {
       style={{margin:"2rem"}}>
         <Col>
           <Input
-            value={term}
+            value={term || ""}
             onChange={handleChange}
             placeholder="Enter search term..."
           />
