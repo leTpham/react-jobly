@@ -19,7 +19,7 @@ function SearchForm({ search }) {
     setTerm(evt.target.value);
     if(term.length > 0) handleChangeWithLib(term)
   }
-
+  //TODO: calling debounce (think about this) "use callback"
   const handleChangeWithLib = debounce((term) => {
     search(term)
   }, [200]);

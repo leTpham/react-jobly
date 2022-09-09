@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import userContext from "./userContext";
 import jwt_decode from "jwt-decode";
 import JoblyApi from './joblyApi';
-import { Helmet } from "react-helmet";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./NavBar.js";
 import RouteList from "./RouteList.js";
@@ -12,7 +11,9 @@ import RouteList from "./RouteList.js";
 /** App
  *
  * State:
- * user: {data, token}
+ * - user: {username, firstName, lastName, email, isAdmin}
+ * - token: "authorization token"
+ * - isLoading: boolean
  *
  * App -> {NavBar, RouteList}
  */
@@ -20,7 +21,7 @@ function App() {
   const TOKEN_KEY = "token";
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(function getToken() {
     const currToken = JSON.parse(localStorage.getItem(TOKEN_KEY));
@@ -28,11 +29,20 @@ function App() {
     JoblyApi.token = currToken;
     if (currToken) {
       const currUser = jwt_decode(currToken);
-      setUser(currUser);
+      async function fetchUser() {
+        const {
+          username,
+          firstName,
+          lastName,
+          email,
+          isAdmin
+        } = await JoblyApi.getUser(currUser.username);
+        setUser({ username, firstName, lastName, email, isAdmin });
+        setIsLoading(false);
+      }
+      fetchUser();
     }
-    else {
-      setUser(null);
-    }
+    else setUser(null);
   }, [token]);
 
   // store user data and token in state & localStorage
@@ -66,17 +76,10 @@ function App() {
     setUser(updatedUser);
   }
 
+  if (isLoading) return <i>Loading...</i>;
+
   return (
     <div className="App">
-      <Helmet >
-        <title>Jobly!</title>
-        <style type="text/css">
-          {`body {
-            background-image: url("background.jpg");
-            background-size: cover;
-          }`}
-        </style>
-      </Helmet>
       <userContext.Provider value={{ user }}>
         <BrowserRouter>
           <NavBar logout={logout} />

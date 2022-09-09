@@ -10,12 +10,17 @@ import {
   Input,
   Button
 } from "reactstrap";
-import JoblyApi from "./joblyApi";
 import AlertMsg from "./Alert";
 
 /** ProfileForm component
  *
- * State: formdata
+ * State:
+ * - formdata: { firstName, lastName, email }
+ * -isLoading: true/false
+ * -isUpdated: true/false on successful form submission
+ * - err: [error, ...] array of error messages
+ *
+ * Context: user {user}
  *
  * Props:
  * - editUser: fn()
@@ -26,21 +31,14 @@ function ProfileForm({ editUser }) {
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
-  const { user } = useContext(userContext);
   const [err, setErr] = useState(null);
+  const { user } = useContext(userContext);
 
 
   useEffect(function fetchUserProfile() {
-    async function fetchUser() {
-      const {
-        firstName,
-        lastName,
-        email
-      } = await JoblyApi.getUser(user.username);
-      setFormData({ firstName, lastName, email });
-      setIsLoading(false);
-    }
-    fetchUser();
+    const { firstName, lastName, email } = user;
+    setFormData({ firstName, lastName, email });
+    setIsLoading(false);
   }, [user]);
 
   if (isLoading) return <i>Loading...</i>;
@@ -55,11 +53,11 @@ function ProfileForm({ editUser }) {
     try {
       await editUser(formData);
       setIsUpdated(true);
-      setErr(null)
+      setErr(null);
     }
     catch (e) {
       setErr(e);
-      setIsUpdated(false)
+      setIsUpdated(false);
     }
   }
 
@@ -102,7 +100,7 @@ function ProfileForm({ editUser }) {
                 onChange={handleChange}
                 type="email" />
             </FormGroup>
-            {err && <AlertMsg error={err}/>}
+            {err && <AlertMsg error={err} />}
             {isUpdated && <AlertMsg success="success" />}
             <Button color="primary">Submit</Button>
           </Form>
