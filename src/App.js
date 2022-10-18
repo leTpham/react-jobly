@@ -86,7 +86,7 @@ function App() {
 
   return (
     <div className="App"
-          style={{backgroundImage: `url("background.jpg")`,
+          style={{backgroundImage: `url("giphy.gif")`,
                   backgroundSize: "cover",
                   height: "100vh"}}>
       <userContext.Provider value={{ user }}>
