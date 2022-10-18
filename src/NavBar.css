@@ -1,5 +1,5 @@
 .NavBar a.active {
-    text-decoration: underline
+    text-decoration: none;
 }
 
 .NavBar a {
